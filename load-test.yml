@@ -1,0 +1,28 @@
+# Configuración de Pruebas de Carga y Rendimiento con Artillery (PUCP Sesión 2)
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 5
+      arrivalRate: 5
+      name: "1. Fase de Calentamiento (Warm-up)"
+    - duration: 10
+      arrivalRate: 25
+      name: "2. Ráfaga de Concurrencia (Peak Load / Spike)"
+    - duration: 5
+      arrivalRate: 10
+      name: "3. Carga Sostenida (Sustained Load)"
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Navegación y consulta concurrente de catálogo de productos"
+    flow:
+      - get:
+          url: "/api/health"
+      - get:
+          url: "/api/productos"
+      - get:
+          url: "/api/productos?categoria=hombres"
+      - get:
+          url: "/api/productos?categoria=mujeres"

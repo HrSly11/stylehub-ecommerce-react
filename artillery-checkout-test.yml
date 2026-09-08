@@ -1,0 +1,33 @@
+# Configuración de Pruebas de Carga en Checkout con Artillery (Simulación de Concurrencia / Race Condition)
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 5
+      arrivalRate: 20
+      name: "Ráfaga de Compras Simultáneas (Race Condition Test)"
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Intento de finalización de pedido concurrente"
+    flow:
+      - post:
+          url: "/api/pedidos"
+          json:
+            comprador:
+              nombreCompleto: "Usuario Concurrente Test"
+              correo: "stress_test@stylehub.com"
+              documento: "79812345"
+              telefono: "987654321"
+              direccion: "Av. Universitaria 1801"
+              ciudad: "Lima"
+            productos:
+              - id: 1
+                nombre: "Camisa Casual Azul"
+                precio: 79.90
+                cantidad: 1
+            subtotal: 79.90
+            envio: 10.00
+            total: 89.90
+            metodoPago: "tarjeta"
