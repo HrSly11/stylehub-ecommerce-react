@@ -1,4 +1,4 @@
-# Configuración de Pruebas de Carga y Rendimiento con Artillery (PUCP Sesión 2)
+# Configuración de Pruebas de Carga y Rendimiento con Artillery
 config:
   target: "http://localhost:3001"
   phases:

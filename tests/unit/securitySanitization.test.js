@@ -5,7 +5,7 @@ import {
 } from '../../server/schemas/validation.js';
 
 describe('Pruebas Unitarias de Seguridad: Sanitización XSS y Validación Zod', () => {
-  describe('Sanitización XSS (Sesión 3 - Seguridad en Desarrollo Web)', () => {
+  describe('Sanitización XSS y Prevención de Inyecciones', () => {
     it('Debería neutralizar etiquetas <script> maliciosas', () => {
       const payload = 'Gran producto <script>alert("XSS Vulnerability")</script> muy cómodo';
       const clean = sanitizeHtml(payload);

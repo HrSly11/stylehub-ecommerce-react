@@ -10,7 +10,7 @@ StyleHub es un proyecto académico de E-commerce de ropa con categorías para ho
 - Carrito de compras con actualización dinámica de cantidades, eliminación de productos, cálculo de subtotal, envío y total, además de vista para carrito vacío.
 - Formulario para finalizar pedido con datos del comprador, dirección de envío y selección de método de pago (Tarjeta, Yape / Plin y Pago contra entrega).
 - Pantalla de confirmación con resumen de la orden, código de compra generado y guardado en PostgreSQL.
-- **Módulo de Opiniones del Producto (Sesión 3 - Seguridad Web):**
+- **Módulo de Opiniones del Producto y Seguridad Web:**
   - Publicación y visualización de opiniones y valoraciones con estrellas (1 a 5).
   - **Validación de esquemas JSON con Zod:** Validación estricta tanto en cliente como en backend evitando inyección de campos no autorizados.
   - **Sanitización contra Cross-Site Scripting (XSS) con DOMPurify:** Desinfección de contenido HTML antes de renderizar con `dangerouslySetInnerHTML`, permitiendo tags seguros como `<b>` e `<i>` y neutralizando scripts o eventos `onerror`.

@@ -36,7 +36,7 @@ export function ProductReviews({ producto = null }) {
       productoId: producto ? producto.id : undefined
     };
 
-    // Validación estricta en el cliente utilizando Zod (Sesión 3)
+    // Validación estricta en el cliente utilizando Zod
     const validacion = reviewSchema.safeParse(payload);
     if (!validacion.success) {
       const primerError = validacion.error.issues?.[0]?.message || 'Datos del formulario inválidos.';
@@ -179,7 +179,7 @@ export function ProductReviews({ producto = null }) {
           ) : (
             <div className="resenas-lista">
               {reviews.map((rev) => {
-                // Sanitización estricta con DOMPurify antes del renderizado (Prevención de XSS - Sesión 3)
+                // Sanitización estricta con DOMPurify antes del renderizado (Prevención de XSS)
                 const safeHtml = DOMPurify.sanitize(rev.text, {
                   ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'p', 'span'],
                   ALLOWED_ATTR: []

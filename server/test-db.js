@@ -92,7 +92,7 @@ async function testConnection() {
     await dbPool.query(initSchema);
     console.log('Tablas (usuarios, productos, pedidos, resenas) creadas o verificadas.');
 
-    // 4. Sembrar usuario de prueba y admin con contraseñas Bcrypt hasheadas (Sesión 4)
+    // 4. Sembrar usuario de prueba y admin con contraseñas Bcrypt hasheadas
     const testPasswordHash = bcrypt.hashSync('1234', 10);
     const checkUser = await dbPool.query("SELECT * FROM usuarios WHERE correo = 'usuario@stylehub.com'");
     if (checkUser.rowCount === 0) {

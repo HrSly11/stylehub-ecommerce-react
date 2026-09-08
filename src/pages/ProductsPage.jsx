@@ -141,7 +141,7 @@ export function ProductsPage() {
         )}
       </section>
 
-      {/* Sección de Opiniones y Reseñas de Clientes (Sesión 3 - XSS & Zod) */}
+      {/* Sección de Opiniones y Reseñas de Clientes */}
       <section id="opiniones" style={{ marginTop: '56px', scrollMarginTop: '80px' }}>
         {productoParaResena && (
           <div className="alert alert-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>

@@ -25,17 +25,17 @@ dotenv.config();
 const { Pool } = pg;
 const app = express();
 
-// 1. Cabeceras HTTP de Seguridad con Helmet (Sesión 4: Diapositiva 6, 17, 18)
+// Cabeceras HTTP de Seguridad con Helmet
 // Configura X-Content-Type-Options (nosniff), X-Frame-Options (clickjacking), HSTS
 app.use(helmet({
   contentSecurityPolicy: false, // Permitir recursos locales sin interferir con Vite en desarrollo
   crossOriginEmbedderPolicy: false
 }));
 
-// 2. Control de Orígenes Cruzados (CORS) (Sesión 4: Diapositiva 10, 17)
+// Control de Orígenes Cruzados (CORS)
 app.use(cors());
 
-// 3. Rate Limiter contra Ataques de Fuerza Bruta y DoS (Sesión 4: Diapositiva 9 & 15)
+// Rate Limiter contra Ataques de Fuerza Bruta y DoS
 export const loginRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // Ventana de 15 minutos
   max: 10, // Máximo 10 intentos fallidos por IP
@@ -49,7 +49,7 @@ export const loginRateLimiter = rateLimit({
 });
 
 /**
- * Sanitizador de contenido HTML (Sesión 3 - Seguridad en Desarrollo Web: Prevención XSS)
+ * Sanitizador de contenido HTML (Prevención XSS)
  * Limpia scripts maliciosos, etiquetas de ejecución y handlers inline.
  */
 export const sanitizeHtml = (dirtyHtml) => {
@@ -196,12 +196,10 @@ app.post('/api/reviews', validateBody(reviewSchema), async (req, res) => {
 
 // =========================================================================
 // MÓDULO DE USUARIOS Y AUTENTICACIÓN
-// (Sesión 4: Bcrypt Hashing, JWT Tokens, SQL Injection Protection)
 // =========================================================================
 
 /**
  * Registro de usuarios con Hashing Seguro de Contraseñas vía Bcrypt
- * (Sesión 4: Diapositiva 7 & 14)
  */
 app.post('/api/usuarios/registro', async (req, res) => {
   try {
@@ -213,7 +211,7 @@ app.post('/api/usuarios/registro', async (req, res) => {
 
     const cleanEmail = correo.trim().toLowerCase();
 
-    // Consulta parametrizada estricta para prevenir SQL Injection (Sesión 4: Diapositiva 16)
+    // Consulta parametrizada estricta para prevenir SQL Injection
     const check = await db.query('SELECT id FROM usuarios WHERE LOWER(correo) = LOWER($1)', [cleanEmail]);
     if (check.rowCount > 0) {
       return res.status(400).json({ success: false, message: 'El correo electrónico ya está registrado.' });
@@ -267,7 +265,7 @@ app.post('/api/usuarios/registro', async (req, res) => {
 
 /**
  * Inicio de sesión con Verificación Bcrypt y Generación de Token JWT
- * Protegido contra Fuerza Bruta con express-rate-limit (Sesión 4: Diapositiva 8, 9, 14)
+ * Protegido contra Fuerza Bruta con express-rate-limit
  */
 app.post('/api/usuarios/login', loginRateLimiter, async (req, res) => {
   try {
@@ -452,7 +450,6 @@ app.get('/api/checkout/:id', async (req, res) => {
 /**
  * Panel de administración con control de acceso seguro y RBAC
  * GET /api/admin/panel
- * (Sesión 4: Diapositiva 19)
  */
 app.get('/api/admin/panel', (req, res, next) => {
   const token = req.headers['x-admin-token'];

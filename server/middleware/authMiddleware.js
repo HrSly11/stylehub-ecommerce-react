@@ -4,7 +4,6 @@ export const JWT_SECRET = process.env.JWT_SECRET || 'stylehub_secret_jwt_key_202
 
 /**
  * Middleware: Autenticación basada en JSON Web Tokens (JWT)
- * (Sesión 4: Seguridad en Desarrollo Web - Diapositiva 8 & 14)
  * Verifica que las solicitudes protegidas contengan un token válido en la cabecera Authorization.
  */
 export const authenticateToken = (req, res, next) => {
@@ -35,7 +34,6 @@ export const authenticateToken = (req, res, next) => {
 
 /**
  * Middleware: Control de acceso basado en roles (RBAC)
- * (Sesión 4: Seguridad en Desarrollo Web - Diapositiva 19)
  * Valida que el usuario autenticado cuente con el rol requerido (ej. 'admin').
  */
 export const authorizeRole = (requiredRole) => {
