@@ -22,8 +22,12 @@ jobs:
           # Agrega la huella digital del servidor para evitar la pregunta interactiva
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+          # Crear la carpeta de destino en el servidor EC2 por si no existe
+          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "mkdir -p /home/ubuntu/pucp-edicion4-fullstack-proyecto-backend"
+
           # rsync por su eficiencia sobre scp
           rsync -avz --exclude 'node_modules' --exclude '.git' --exclude '.github' ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/pucp-edicion4-fullstack-proyecto-backend
+
 
       - name: 4. Ejecutar comandos de despliegue en el servidor
         run: |
