@@ -39,8 +39,9 @@ jobs:
             # Navegar al directorio de la aplicación
             cd /home/ubuntu/pucp-edicion4-fullstack-proyecto-backend
 
-            # Instalar dependencias de producción
-            npm install
+            # Instalar solo dependencias de producción y omitir devDependencies pesadas para evitar out-of-memory
+            npm install --omit=dev --legacy-peer-deps
+
 
             # Recargar la aplicación con PM2
             # 'restart app' intentará reiniciar una app llamada 'app'.
