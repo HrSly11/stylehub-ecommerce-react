@@ -45,9 +45,9 @@ export function ProductsPage() {
       {/* Banner Principal */}
       <section className="hero">
         <span className="hero-etiqueta">
-          <Sparkles size={14} /> Colección Primavera / Verano 2026
+          <Sparkles size={14} /> Colección Primavera / Verano 2026 ABC
         </span>
-        <h2>Moda y estilo para cada miembro de la familia</h2>
+        <h2>Moda y estilo para cada miembro de la familia Harryabc123</h2>
         <p>
           Descubre prendas de alta calidad confeccionadas con los mejores materiales. Diseños pensados para tu confort diario y ocasiones especiales.
         </p>

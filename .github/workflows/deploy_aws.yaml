@@ -1,0 +1,44 @@
+name: Despliegue de backend en AWS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout a la versión del código
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar el agente SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+
+      - name: 3. Copiar archivos al servidor con rsync
+        run: |
+          # Agrega la huella digital del servidor para evitar la pregunta interactiva
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+          # rsync por su eficiencia sobre scp
+          rsync -avz --exclude 'node_modules' --exclude '.git' --exclude '.github' ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/pucp-edicion4-fullstack-proyecto-backend
+
+      - name: 4. Ejecutar comandos de despliegue en el servidor
+        run: |
+          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            # Navegar al directorio de la aplicación
+            cd /home/ubuntu/pucp-edicion4-fullstack-proyecto-backend
+
+            # Instalar dependencias de producción
+            npm install
+
+            # Recargar la aplicación con PM2
+            # 'restart app' intentará reiniciar una app llamada 'app'.
+            # Si no existe, 'start' la creará. Esto hace el script robusto.
+            pm2 restart server/index.js || pm2 start server/index.js --name "server"
+          EOF
