@@ -12,7 +12,15 @@ jobs:
       - name: 1. Checkout a la versión del código
         uses: actions/checkout@v4
 
-      - name: 2. Instalar Vercel CLI
+      - name: 2. Escaneo de seguridad con Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+        continue-on-error: true
+
+      - name: 3. Instalar Vercel CLI
         run: npm install --global vercel@latest
 
       - name: 3. Descargar configuración del entorno de Vercel
