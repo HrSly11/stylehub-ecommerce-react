@@ -1,6 +1,9 @@
 import { PRODUCTOS } from '../data/productos';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 
+  (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+    ? 'http://3.130.217.26:3001/api' 
+    : 'http://localhost:3001/api');
 
 // Función auxiliar para peticiones con timeout y fallback
 async function fetchWithTimeout(url, options = {}, timeoutMs = 2000) {
