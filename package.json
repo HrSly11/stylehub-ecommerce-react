@@ -34,6 +34,10 @@
     "react-router-dom": "^7.18.0",
     "zod": "^4.5.4"
   },
+  "overrides": {
+    "qs": "^6.16.0",
+    "proxy-addr": "^2.0.8"
+  },
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
